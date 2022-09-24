@@ -1,4 +1,6 @@
 import React from 'react';
+import { Controls } from './Controls';
+import { Player } from './Player';
 
 export const MusicPlayer = () => {
   return (
