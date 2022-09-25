@@ -31,7 +31,7 @@ export const MusicPlayer = () => {
     }
   }, [currentIndex]);
 
-  const handlePause = () => {
+  const handlePlayPause = () => {
     if (!isActive) return;
 
     if (isPlaying) {
@@ -47,7 +47,7 @@ export const MusicPlayer = () => {
     }
   };
 
-  const handleNext = () => {
+  const handleNextSong = () => {
     playerDispatch({
       type: 'playPause',
       payload: false,
