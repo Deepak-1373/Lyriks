@@ -13,6 +13,7 @@ export const Songcard = ({ song, i }) => {
               : 'hidden'
           }`}
         ></div>
+        <img src={song.images?.coverart} alt='song_img' />
       </div>
     </div>
   );
