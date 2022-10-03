@@ -1,8 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { PlayPause } from './PlayPause';
 
-export const Songcard = ({ song, i }) => {
-  const activeSong = 'Test';
+export const Songcard = ({ song, isPlaying, activeSong, i, data }) => {
+  const handlePauseClick = () => {};
+
+  const handlePlayClick = () => {};
   return (
     <div className='flex flex-col w-[250px] p-4 bg-white/5 bg-opacity-50 backdrop-blur-sm animate-slideup rounded-lg cursor-pointer'>
       <div className='relative w-full h-56 group'>
@@ -12,7 +15,15 @@ export const Songcard = ({ song, i }) => {
               ? 'flex bg-black bg-opacity-60'
               : 'hidden'
           }`}
-        ></div>
+        >
+          <PlayPause
+            isPlaying={isPlaying}
+            activeSong={activeSong}
+            song={song}
+            handlePause={handlePauseClick}
+            handlePlay={handlePlayClick}
+          />
+        </div>
         <img src={song.images?.coverart} alt='song_img' />
       </div>
       <div className='mt-4 flex flex-col'>
