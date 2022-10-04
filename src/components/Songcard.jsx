@@ -1,11 +1,32 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { usePlayer } from '../context/playerContext';
 import { PlayPause } from './PlayPause';
 
 export const Songcard = ({ song, isPlaying, activeSong, i, data }) => {
-  const handlePauseClick = () => {};
+  const { playerDispatch } = usePlayer();
 
-  const handlePlayClick = () => {};
+  const handlePauseClick = () => {
+    playerDispatch({
+      type: 'playPause',
+      payload: false,
+    });
+  };
+
+  const handlePlayClick = () => {
+    playerDispatch({
+      type: 'setActiveSong',
+      payload: {
+        song,
+        data,
+        i,
+      },
+    });
+    playerDispatch({
+      type: 'playPause',
+      payload: true,
+    });
+  };
   return (
     <div className='flex flex-col w-[250px] p-4 bg-white/5 bg-opacity-50 backdrop-blur-sm animate-slideup rounded-lg cursor-pointer'>
       <div className='relative w-full h-56 group'>
