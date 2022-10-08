@@ -1,10 +1,10 @@
 import { Route, Routes } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { MusicPlayer, Searchbar, Sidebar } from './components';
-import { usePlayer } from './context/playerContext';
 import { Discover } from './pages';
 
 const App = () => {
-  const { activeSong } = usePlayer();
+  const { activeSong } = useSelector((state) => state.musicPlayer);
   return (
     <div className='relative flex'>
       <Sidebar />
