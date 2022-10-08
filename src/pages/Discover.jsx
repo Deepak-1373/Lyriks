@@ -1,29 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { genres } from '../assets/constant';
 import { Loader, Songcard } from '../components';
-import { getTopCharts } from '../features/shazamCoreApi';
-import { usePlayer } from '../context/playerContext';
+import { useGetTopChartsQuery } from '../redux/services/shazamCoreApi';
 
 export const Discover = () => {
-  const { activeSong, isPlaying } = usePlayer();
-  const [chartData, setChartData] = useState({
-    isLoading: true,
-    data: [],
-  });
-
-  useEffect(() => {
-    try {
-      getTopCharts.then((res) =>
-        setChartData((prev) => ({ ...prev, isLoading: false, data: res.data }))
-      );
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
+  const { data, isFetching } = useGetTopChartsQuery();
+  const { activeSong, isPlaying } = useSelector((state) => state.musicPlayer);
 
   return (
     <>
-      {chartData.isLoading ? (
+      {isFetching ? (
         <Loader title='Loading Songs...' />
       ) : (
         <div className='flex flex-col'>
@@ -45,14 +31,14 @@ export const Discover = () => {
           </div>
 
           <div className='flex flex-wrap sm:justify-start justify-center gap-8'>
-            {chartData.data.map((song, i) => (
+            {data?.map((song, i) => (
               <Songcard
                 key={song.key}
                 song={song}
                 isPlaying={isPlaying}
                 activeSong={activeSong}
                 index={i}
-                data={chartData.data}
+                data={data}
               />
             ))}
           </div>
