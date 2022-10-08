@@ -1,33 +1,30 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  nextSong,
+  playPause,
+  prevSong,
+} from '../../redux/features/playerSlice';
 import { Controls } from './Controls';
 import { Player } from './Player';
 import { Seekbar } from './Seekbar';
 import { Track } from './Track';
 import { VolumeBar } from './VolumeBar';
-import { usePlayer } from '../../context/playerContext';
 
 export const MusicPlayer = () => {
-  const {
-    activeSong,
-    currentSongs,
-    currentIndex,
-    isActive,
-    isPlaying,
-    playerDispatch,
-  } = usePlayer();
+  const { activeSong, currentSongs, currentIndex, isActive, isPlaying } =
+    useSelector((state) => state.musicPlayer);
   const [duration, setDuration] = useState(0);
   const [seekTime, setSeekTime] = useState(0);
   const [appTime, setAppTime] = useState(0);
   const [volume, setVolume] = useState(0.3);
   const [repeat, setRepeat] = useState(false);
   const [shuffle, setShuffle] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (currentSongs.length) {
-      playerDispatch({
-        type: 'playPause',
-        payload: true,
-      });
+      dispatch(playPause(true));
     }
   }, [currentIndex]);
 
@@ -35,53 +32,29 @@ export const MusicPlayer = () => {
     if (!isActive) return;
 
     if (isPlaying) {
-      playerDispatch({
-        type: 'playPause',
-        payload: false,
-      });
+      dispatch(playPause(false));
     } else {
-      playerDispatch({
-        type: 'playPause',
-        payload: true,
-      });
+      dispatch(playPause(true));
     }
   };
 
   const handleNextSong = () => {
-    playerDispatch({
-      type: 'playPause',
-      payload: false,
-    });
+    dispatch(playPause(false));
 
     if (!shuffle) {
-      playerDispatch({
-        type: 'nextSong',
-        payload: (currentIndex + 1) % currentSongs.length,
-      });
+      dispatch(nextSong((currentIndex + 1) % currentSongs.length));
     } else {
-      playerDispatch({
-        type: 'nextSong',
-        payload: Math.floor(Math.random() * currentSongs.length),
-      });
+      dispatch(nextSong(Math.floor(Math.random() * currentSongs.length)));
     }
   };
 
   const handlePrevSong = () => {
     if (currentIndex == 0) {
-      playerDispatch({
-        type: 'prevSong',
-        payload: currentIndex - 1,
-      });
+      dispatch(prevSong(currentSongs.length - 1));
     } else if (shuffle) {
-      playerDispatch({
-        type: 'prevSong',
-        payload: Math.floor(Math.random() * currentSongs.length),
-      });
+      dispatch(prevSong(Math.floor(Math.random() * currentSongs.length)));
     } else {
-      playerDispatch({
-        type: 'prevSong',
-        payload: currentIndex - 1,
-      });
+      dispatch(prevSong(currentIndex - 1));
     }
   };
 
