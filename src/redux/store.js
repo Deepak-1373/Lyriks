@@ -4,7 +4,7 @@ import { playerReducer } from './features/playerSlice';
 
 export const store = configureStore({
   reducer: {
-    player: playerReducer,
+    musicPlayer: playerReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware.concat(shazamCoreApi.middleware),
