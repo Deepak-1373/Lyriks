@@ -1,31 +1,19 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { usePlayer } from '../context/playerContext';
+import { playPause, setActiveSong } from '../redux/features/playerSlice';
 import { PlayPause } from './PlayPause';
 
 export const Songcard = ({ song, isPlaying, activeSong, i, data }) => {
-  const { playerDispatch } = usePlayer();
+  const dispatch = useDispatch();
 
   const handlePauseClick = () => {
-    playerDispatch({
-      type: 'playPause',
-      payload: false,
-    });
+    dispatch(playPause(false));
   };
 
   const handlePlayClick = () => {
-    playerDispatch({
-      type: 'setActiveSong',
-      payload: {
-        song,
-        data,
-        i,
-      },
-    });
-    playerDispatch({
-      type: 'playPause',
-      payload: true,
-    });
+    dispatch(setActiveSong({ song, data, i }));
+    dispatch(playPause(true));
   };
   return (
     <div className='flex flex-col w-[250px] p-4 bg-white/5 bg-opacity-50 backdrop-blur-sm animate-slideup rounded-lg cursor-pointer'>
