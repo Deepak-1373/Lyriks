@@ -23,9 +23,7 @@ export const MusicPlayer = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (currentSongs.length) {
-      dispatch(playPause(true));
-    }
+    if (currentSongs.length) dispatch(playPause(true));
   }, [currentIndex]);
 
   const handlePlayPause = () => {
@@ -49,7 +47,7 @@ export const MusicPlayer = () => {
   };
 
   const handlePrevSong = () => {
-    if (currentIndex == 0) {
+    if (currentIndex === 0) {
       dispatch(prevSong(currentSongs.length - 1));
     } else if (shuffle) {
       dispatch(prevSong(Math.floor(Math.random() * currentSongs.length)));
