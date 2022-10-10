@@ -1,5 +1,47 @@
-import React from 'react';
+import { useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useGetTopChartsQuery } from '../redux/services/shazamCoreApi';
+import { PlayPause } from './PlayPause';
+import { playPause, setActiveSong } from '../redux/features/playerSlice';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { FreeMode } from 'swiper';
+import 'swiper/css';
+import 'swiper/css/free-mode';
+import { Link } from 'react-router-dom';
 
 export const TopPlay = () => {
-  return <div>TopPlay</div>;
+  const dispatch = useDispatch();
+  const { activeSong, isPlaying } = useSelector((state) => state.musicPlayer);
+  const { data } = useGetTopChartsQuery;
+  const divRef = useRef(null);
+
+  useEffect(() => {
+    divRef.current.scrollIntoView({ behavior: 'smooth' });
+  });
+
+  const topPlays = data?.slice(0, 5);
+
+  const handlePauseClick = () => {
+    dispatch(playPause(false));
+  };
+
+  const handlePlayClick = () => {
+    dispatch(setActiveSong({ song, data, i }));
+    dispatch(playPause(true));
+  };
+  return (
+    <div
+      className='xl:ml-6 ml-0 xl:mb-0 mb-6 flex-1 xl:max-w-[500px] max-w-full flex flex-col'
+      ref={divRef}
+    >
+      <div className='w-full flex flex-col'>
+        <div className='flex flex-row justify-between items-center'>
+          <h2 className='text-white font-bold text-2xl'>Top Charts</h2>
+          <Link to='/top-charts'>
+            <p className='text-gray-300 text-base cursor-pointer'>See more</p>
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
 };
