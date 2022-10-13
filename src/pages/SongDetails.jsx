@@ -1,3 +1,18 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { setActiveSong, playPause } from '../redux/features/playerSlice';
+
 export const SongDetails = () => {
-  return <div>SongDetails</div>;
+  const { songid } = useParams();
+  const dispatch = useDispatch();
+  const { activeSong, isPlaying } = useSelector((state) => state.musicPlayer);
+
+  return (
+    <div className='flex flex-col'>
+      {/* <DetailsHeader artistId={artistId} songData={songData} /> */}
+      <div className='mb-10'>
+        <h2 className='text-white text-3xl font-bold'>Lyrics:</h2>
+      </div>
+    </div>
+  );
 };
