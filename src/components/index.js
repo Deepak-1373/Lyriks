@@ -6,3 +6,4 @@ export { PlayPause } from './PlayPause';
 export { MusicPlayer } from './MusicPlayer/index';
 export { TopPlay } from './TopPlay';
 export { DetailsHeader } from './DetailsHeader';
+export { RelatedSongs } from './RelatedSongs';
