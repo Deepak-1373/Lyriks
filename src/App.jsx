@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { MusicPlayer, Searchbar, Sidebar, TopPlay } from './components';
-import { Discover, SongDetails, ArtistDetails } from './pages';
+import { Discover, SongDetails, ArtistDetails, AroundYou } from './pages';
 
 const App = () => {
   const { activeSong } = useSelector((state) => state.musicPlayer);
@@ -14,6 +14,7 @@ const App = () => {
           <div className='flex-1 h-fit pb-40'>
             <Routes>
               <Route path='/' element={<Discover />} />
+              <Route path='/around-you' element={<AroundYou />} />
               <Route path='/songs/:songid' element={<SongDetails />} />
               <Route path='/artists/:id' element={<ArtistDetails />} />
             </Routes>
