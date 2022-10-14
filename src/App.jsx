@@ -8,6 +8,7 @@ import {
   AroundYou,
   TopCharts,
   TopArtists,
+  Search,
 } from './pages';
 
 const App = () => {
@@ -26,6 +27,7 @@ const App = () => {
               <Route path='/around-you' element={<AroundYou />} />
               <Route path='/songs/:songid' element={<SongDetails />} />
               <Route path='/artists/:id' element={<ArtistDetails />} />
+              <Route path='/search/:searchTerm' element={<Search />} />
             </Routes>
           </div>
           <div className='xl:sticky relative top-0 h-fit'>
